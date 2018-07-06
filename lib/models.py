@@ -35,7 +35,7 @@ class ResNetWSL(nn.Module):
         self.spatial_pooling = pooling.spatial
 
         self.class_pooling_avg = pooling.class_wise_avg
-        
+
         # image normalization
         self.image_normalization_mean = [0.485, 0.456, 0.406]
         self.image_normalization_std = [0.229, 0.224, 0.225]
@@ -55,7 +55,7 @@ class ResNetWSL(nn.Module):
         y = self.class_pooling_avg(x)
         x = self.class_pooling(x)
         b, c, _, _ = x.size() 
-        y = self.attn(x)
+        y = self.attnlayer(x)
         x = x + y*x
         x = self.spatial_pooling(x)
         # x = F.adaptive_avg_pool2d(x, output_size=1)
