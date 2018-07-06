@@ -34,7 +34,8 @@ class ResNetWSL(nn.Module):
         self.class_pooling = pooling.class_wise
         self.spatial_pooling = pooling.spatial
 
-        # self.class_pooling_avg = pooling.class_wise_avg
+        self.class_pooling_avg = pooling.class_wise_avg
+        
         # image normalization
         self.image_normalization_mean = [0.485, 0.456, 0.406]
         self.image_normalization_std = [0.229, 0.224, 0.225]
