@@ -4,8 +4,8 @@ import torch.nn as nn
 import torchvision.models as models
 import torch.nn.functional as F
 
-from pooling import WildcatPool2d, ClassWisePool, ClassWisePool_avg
-from layers import AttentionLayer
+from .pooling import WildcatPool2d, ClassWisePool, ClassWisePool_avg
+from .layers import AttentionLayer
 
 class ResNetWSL(nn.Module):
 
