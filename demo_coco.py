@@ -4,7 +4,7 @@ import torch
 import torch.nn as nn
 
 from experiment.engine import MultiLabelMAPEngine
-from experiment.models import resnet50_base, resnet101_base
+from lib.models import resnet50_base, resnet101_base
 from dataset.coco import CocoClassification
 
 parser = argparse.ArgumentParser(description='WILDCAT Training')
