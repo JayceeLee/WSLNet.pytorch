@@ -9,7 +9,7 @@ import torch
 import torch.utils.data as data
 from PIL import Image
 
-from wildcat import util
+from lib import util
 
 object_categories = ['aeroplane', 'bicycle', 'bird', 'boat',
                      'bottle', 'bus', 'car', 'cat', 'chair',
@@ -250,7 +250,7 @@ class Voc2007Classification(data.Dataset):
             img = self.transform(img)
         if self.target_transform is not None:
             target = self.target_transform(target)
-        return (img, path), target
+        return img, target
 
     def __len__(self):
         return len(self.images)
