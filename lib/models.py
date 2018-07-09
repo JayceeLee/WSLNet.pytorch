@@ -56,12 +56,17 @@ class ResNetWSL(nn.Module):
         # x = self.group_conv(x)
         y = self.class_pooling_avg(x)
         x = self.class_pooling(x)
-        b, c, _, _ = x.size() 
+        b, c, w, _ = x.size() 
 
         # x = self.non_local_layer(x)
 
         y = self.attnlayer(y)
-        x = x + y*x
+        y = y * x
+
+        x = x.view(b*c, w, -1)
+        y = y.view(b*c, w, -1)
+        x = torch.bmm(x, torch.tranpose(y, 2, 1)) 
+        x = x.view(b, c, w, -1)
         x = self.spatial_pooling(x)
         # x = F.adaptive_avg_pool2d(x, output_size=1)
         x = x.view(b, c)
