@@ -6,6 +6,7 @@ import torch.nn.functional as F
 
 from .pooling import WildcatPool2d, ClassWisePool, ClassWisePool_avg
 from .layers import AttentionLayer
+from .non_local import NONLocalBlock2D
 
 class ResNetWSL(nn.Module):
 
@@ -36,6 +37,7 @@ class ResNetWSL(nn.Module):
 
         self.class_pooling_avg = pooling.class_wise_avg
 
+        self.non_local_layer = NONLocalBlock2D(in_channels=num_classes)
         # image normalization
         self.image_normalization_mean = [0.485, 0.456, 0.406]
         self.image_normalization_std = [0.229, 0.224, 0.225]
@@ -47,16 +49,19 @@ class ResNetWSL(nn.Module):
         # b, c, _, _ = x.size()
         # y = y.repeat(1, 1, 1, self.num_maps).view(b, c*self.num_maps, 1, 1)
         # x = self.classifier(x)
-        y = self.de_conv(x)
-        x = self.group_conv(y)
+        x = self.de_conv(x)
+        x = self.group_conv(x)
         # x = x + y*x
 
         # x = self.group_conv(x)
-        y = self.class_pooling_avg(x)
+        # y = self.class_pooling_avg(x)
         x = self.class_pooling(x)
         b, c, _, _ = x.size() 
-        y = self.attnlayer(x)
-        x = x + y*x
+
+        x = non_local_layer(x)
+
+        # y = self.attnlayer(x)
+        # x = x + y*x
         x = self.spatial_pooling(x)
         # x = F.adaptive_avg_pool2d(x, output_size=1)
         x = x.view(b, c)
