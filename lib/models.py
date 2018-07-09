@@ -65,7 +65,7 @@ class ResNetWSL(nn.Module):
 
         x = x.view(b*c, w, -1)
         y = y.view(b*c, w, -1)
-        x = torch.bmm(x, torch.tranpose(y, 2, 1)) 
+        x = torch.bmm(x, torch.transpose(y, 2, 1)) 
         x = x.view(b, c, w, -1)
         x = self.spatial_pooling(x)
         # x = F.adaptive_avg_pool2d(x, output_size=1)
