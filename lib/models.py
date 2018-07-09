@@ -58,7 +58,7 @@ class ResNetWSL(nn.Module):
         x = self.class_pooling(x)
         b, c, _, _ = x.size() 
 
-        x = non_local_layer(x)
+        x = self.non_local_layer(x)
 
         # y = self.attnlayer(x)
         # x = x + y*x
