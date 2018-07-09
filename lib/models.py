@@ -72,7 +72,7 @@ class ResNetWSL(nn.Module):
         return [{'params': self.features.parameters(), 'lr': lr * lrp},
                 {'params': self.de_conv.parameters()},
                 {'params': self.group_conv.parameters()},
-                {'params': self.attn_layer.parameters()},
+                {'params': self.attnlayer.parameters()},
                 {'params': self.class_pooling.parameters()},
                 {'params': self.class_pooling_avg.parameters()},
                 {'params': self.spatial_pooling.parameters()}]
