@@ -73,7 +73,7 @@ def main():
     state = {'batch_size': args.batch_size, 'image_size': args.image_size, 'max_epochs': args.epochs,
              'evaluate': args.evaluate, 'resume': args.resume}
     state['difficult_examples'] = True
-    state['save_model_path'] = './expes/models/nus_wide/448/50'
+    state['save_model_path'] = './expes/models/nus_wide/448/50_baseline'
     
     engine = MultiLabelMAPEngine(state)
     engine.learning(model, criterion, train_dataset, val_dataset, optimizer)
