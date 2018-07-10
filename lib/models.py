@@ -6,7 +6,6 @@ import torch.nn.functional as F
 
 from .pooling import WildcatPool2d, ClassWisePool, ClassWisePool_avg
 from .layers import AttentionLayer
-from .non_local import NONLocalBlock2D
 
 class ResNetWSL(nn.Module):
 
