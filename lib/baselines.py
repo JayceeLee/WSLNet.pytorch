@@ -218,6 +218,7 @@ class resnet101_orig(nn.Module):
     def __init__(self, num_classes=81, pretrained=True):
         super(resnet101_orig, self).__init__()
         self.net = resnet101(pretrained)
+        self.net.avgpool = nn.AvgPool2d(14, stride=1)
         self.net.fc = nn.Linear(2048, num_classes)
         
         self.image_normalization_mean = [0.485, 0.456, 0.406]
@@ -235,6 +236,7 @@ class resnet50_orig(nn.Module):
     def __init__(self, num_classes=81, pretrained=True):
         super(resnet50_orig, self).__init__()
         self.net = resnet50(pretrained)
+        self.net.avgpool = nn.AvgPool2d(14, stride=1)
         self.net.fc = nn.Linear(2048, num_classes)
         
         self.image_normalization_mean = [0.485, 0.456, 0.406]

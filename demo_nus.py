@@ -59,7 +59,6 @@ def main():
     # model = resnet50_base(num_classes, pretrained=True, kmax=args.k, alpha=args.alpha, num_maps=args.maps)
     # model = resnet101_base(num_classes, pretrained=True, kmax=args.k, alpha=args.alpha, num_maps=args.maps)
     model = resnet50_orig(num_classes, pretrained=True)
-
     # define loss function (criterion)
     # criterion = nn.MultiLabelSoftMarginLoss()
     criterion = nn.BCELoss()
@@ -73,7 +72,7 @@ def main():
     state = {'batch_size': args.batch_size, 'image_size': args.image_size, 'max_epochs': args.epochs,
              'evaluate': args.evaluate, 'resume': args.resume}
     state['difficult_examples'] = True
-    state['save_model_path'] = './expes/models/nus_wide/448/50_baseline'
+    state['save_model_path'] = './expes/models/nus_wide/448/50_resnet'
     
     engine = MultiLabelMAPEngine(state)
     engine.learning(model, criterion, train_dataset, val_dataset, optimizer)
