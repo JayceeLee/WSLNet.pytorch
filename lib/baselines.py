@@ -224,6 +224,9 @@ class resnet101_orig(nn.Module):
         self.image_normalization_std = [0.229, 0.224, 0.225]
     def forward(self, x):
         return F.sigmoid(self.net(x))
+    
+    def get_config_optim(self, lr, lrp):
+        return [{'params': self.net.parameters(), 'lr': lr * lrp}]
 
 class resnet50_orig(nn.Module):
     def __init__(self, num_classes=80, pretrained=True):
@@ -235,3 +238,6 @@ class resnet50_orig(nn.Module):
         self.image_normalization_std = [0.229, 0.224, 0.225]
     def forward(self, x):
         return F.sigmoid(self.net(x))
+
+    def get_config_optim(self, lr, lrp):
+        return [{'params': self.net.parameters(), 'lr': lr * lrp}]
