@@ -8,8 +8,51 @@ import numpy as np
 import torch
 import torch.utils.data as data
 from PIL import Image
+from tqdm import tqdm 
+from urllib.request import urlretrieve
 
-from lib import util
+
+def download_url(url, destination=None, progress_bar=True):
+    """Download a URL to a local file.
+
+    Parameters
+    ----------
+    url : str
+        The URL to download.
+    destination : str, None
+        The destination of the file. If None is given the file is saved to a temporary directory.
+    progress_bar : bool
+        Whether to show a command-line progress bar while downloading.
+
+    Returns
+    -------
+    filename : str
+        The location of the downloaded file.
+
+    Notes
+    -----
+    Progress bar use/example adapted from tqdm documentation: https://github.com/tqdm/tqdm
+    """
+
+    def my_hook(t):
+        last_b = [0]
+
+        def inner(b=1, bsize=1, tsize=None):
+            if tsize is not None:
+                t.total = tsize
+            if b > 0:
+                t.update((b - last_b[0]) * bsize)
+            last_b[0] = b
+
+        return inner
+
+    if progress_bar:
+        with tqdm(unit='B', unit_scale=True, miniters=1, desc=url.split('/')[-1]) as t:
+            filename, _ = urlretrieve(url, filename=destination, reporthook=my_hook(t))
+    else:
+        filename, _ = urlretrieve(url, filename=destination)
+
+
 
 object_categories = ['aeroplane', 'bicycle', 'bird', 'boat',
                      'bottle', 'bus', 'car', 'cat', 'chair',
@@ -130,7 +173,7 @@ def download_voc2007(root):
 
         if not os.path.exists(cached_file):
             print('Downloading: "{}" to {}\n'.format(urls['devkit'], cached_file))
-            util.download_url(urls['devkit'], cached_file)
+            download_url(urls['devkit'], cached_file)
 
         # extract file
         print('[dataset] Extracting tar file {file} to {path}'.format(file=cached_file, path=root))
@@ -152,7 +195,7 @@ def download_voc2007(root):
 
         if not os.path.exists(cached_file):
             print('Downloading: "{}" to {}\n'.format(urls['trainval_2007'], cached_file))
-            util.download_url(urls['trainval_2007'], cached_file)
+            download_url(urls['trainval_2007'], cached_file)
 
         # extract file
         print('[dataset] Extracting tar file {file} to {path}'.format(file=cached_file, path=root))
@@ -175,7 +218,7 @@ def download_voc2007(root):
 
         if not os.path.exists(cached_file):
             print('Downloading: "{}" to {}\n'.format(urls['test_images_2007'], cached_file))
-            util.download_url(urls['test_images_2007'], cached_file)
+            download_url(urls['test_images_2007'], cached_file)
 
         # extract file
         print('[dataset] Extracting tar file {file} to {path}'.format(file=cached_file, path=root))
@@ -198,7 +241,7 @@ def download_voc2007(root):
 
         if not os.path.exists(cached_file):
             print('Downloading: "{}" to {}\n'.format(urls['test_anno_2007'], cached_file))
-            util.download_url(urls['test_anno_2007'], cached_file)
+            download_url(urls['test_anno_2007'], cached_file)
 
         # extract file
         print('[dataset] Extracting tar file {file} to {path}'.format(file=cached_file, path=root))
@@ -257,3 +300,6 @@ class Voc2007Classification(data.Dataset):
 
     def get_number_classes(self):
         return len(self.classes)
+
+if __name__ == '__main__':
+    download_voc2007('/home/lucliu/dataset/voc')
