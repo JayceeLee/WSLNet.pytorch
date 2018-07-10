@@ -215,29 +215,35 @@ def resnet152(pretrained=False, **kwargs):
 
 # For our task
 class resnet101_orig(nn.Module):
-    def __init__(self, num_classes=80, pretrained=True):
+    def __init__(self, num_classes=81, pretrained=True):
         super(resnet101_orig, self).__init__()
         self.net = resnet101(pretrained)
         self.net.fc = nn.Linear(2048, num_classes)
         
         self.image_normalization_mean = [0.485, 0.456, 0.406]
         self.image_normalization_std = [0.229, 0.224, 0.225]
+
     def forward(self, x):
-        return F.sigmoid(self.net(x))
+        x = self.net(x)
+        x = F.sigmoid(x)
+        return x 
     
     def get_config_optim(self, lr, lrp):
         return [{'params': self.net.parameters(), 'lr': lr * lrp}]
 
 class resnet50_orig(nn.Module):
-    def __init__(self, num_classes=80, pretrained=True):
+    def __init__(self, num_classes=81, pretrained=True):
         super(resnet50_orig, self).__init__()
         self.net = resnet50(pretrained)
         self.net.fc = nn.Linear(2048, num_classes)
         
         self.image_normalization_mean = [0.485, 0.456, 0.406]
         self.image_normalization_std = [0.229, 0.224, 0.225]
+
     def forward(self, x):
-        return F.sigmoid(self.net(x))
+        x = self.net(x)
+        x = F.sigmoid(x)
+        return x 
 
     def get_config_optim(self, lr, lrp):
         return [{'params': self.net.parameters(), 'lr': lr * lrp}]
