@@ -215,7 +215,7 @@ def resnet152(pretrained=False, **kwargs):
 
 # For our task
 class resnet101_orig(nn.Module):
-    def __init__(self, pretrained=True, num_classes=80):
+    def __init__(self, num_classes=80, pretrained=True):
         super(resnet101_orig, self).__init__()
         self.net = resnet101(pretrained)
         self.net.fc = nn.Linear(2048, num_classes)
@@ -226,7 +226,7 @@ class resnet101_orig(nn.Module):
         return F.sigmoid(self.net(x))
 
 class resnet50_orig(nn.Module):
-    def __init__(self, pretrained=True, num_classes=80):
+    def __init__(self, num_classes=80, pretrained=True):
         super(resnet50_orig, self).__init__()
         self.net = resnet50(pretrained)
         self.net.fc = nn.Linear(2048, num_classes)

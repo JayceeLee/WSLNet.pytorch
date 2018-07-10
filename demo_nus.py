@@ -5,6 +5,8 @@ import torch.nn as nn
 
 from experiment.engine import MultiLabelMAPEngine
 from lib.models import resnet50_base, resnet101_base
+from lib.baselines import resnet50_orig, resnet101_orig
+from lib.wildcat import resnet50_wildcat, resnet101_wildcat
 from dataset.nus_wide import NUSClassification
 
 parser = argparse.ArgumentParser(description='WILDCAT Training')
@@ -54,8 +56,9 @@ def main():
     num_classes = 81
 
     # load model
-    model = resnet50_base(num_classes, pretrained=True, kmax=args.k, alpha=args.alpha, num_maps=args.maps)
+    # model = resnet50_base(num_classes, pretrained=True, kmax=args.k, alpha=args.alpha, num_maps=args.maps)
     # model = resnet101_base(num_classes, pretrained=True, kmax=args.k, alpha=args.alpha, num_maps=args.maps)
+    model = resnet50_orig(num_classes, pretrained=True)
 
     # define loss function (criterion)
     # criterion = nn.MultiLabelSoftMarginLoss()
