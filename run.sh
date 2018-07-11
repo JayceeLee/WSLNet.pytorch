@@ -1,4 +1,4 @@
-CUDA_VISIBLE_DEVICES=1,2 python3 -m demo_coco /home/lucliu/dataset/mscoco \
+CUDA_VISIBLE_DEVICES=1,2 python3 -m demo /home/lucliu/dataset/mscoco \
 --image-size 448 \
 --batch-size 50 \
 --lrp 0.1 \
