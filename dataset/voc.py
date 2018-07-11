@@ -255,7 +255,7 @@ def download_voc2007(root):
 
 
 class Voc2007Classification(data.Dataset):
-    def __init__(self, root, set, transform=None, target_transform=None):
+    def __init__(self, root, set, transform=None, target_transform=None, **kwargs):
         self.root = root
         self.path_devkit = os.path.join(root, 'VOCdevkit')
         self.path_images = os.path.join(root, 'VOCdevkit', 'VOC2007', 'JPEGImages')

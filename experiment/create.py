@@ -6,6 +6,8 @@ from lib.wildcat import resnet50_wildcat, resnet101_wildcat
 
 from dataset.coco import CocoClassification
 from dataset.nus_wide import NUSClassification
+from dataset.wider import WiderClassification 
+from dataset.voc import Voc2007Classification
 
 model_factory = {
     'ours_50': resnet50_base,
@@ -31,6 +33,8 @@ def create_model(name, *args, **kwargs):
 dataset_factory = {
     'mscoco': CocoClassification,
     'nus-wide': NUSClassification,
+    'wider': WiderClassification,
+    'voc': Voc2007Classification,
 }
 
 def create_dataset(name, *args, **kwargs):
