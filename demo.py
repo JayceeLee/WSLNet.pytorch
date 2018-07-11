@@ -53,15 +53,12 @@ def main():
     use_gpu = torch.cuda.is_available()
 
     # define dataset
-    Dataset = create_dataset(args.dataname)
-    train_dataset = Dataset(args.data, 'train')
-    val_dataset = Dataset(args.data, 'test')
-    num_classes = Dataset.get_number_classes()
+    train_dataset = create_dataset(args.dataname, args.data, 'train')
+    val_dataset = create_dataset(args.dataname, args.data, 'test')
+    num_classes = train_dataset.get_number_classes()
 
     # load model
-    Net = create_model(args.model)
-    model = Net(num_classes, pretrained=True, kmax=args.k, alpha=args.alpha, num_maps=args.maps)
-    # model = resnet101_base(num_classes, pretrained=True, kmax=args.k, alpha=args.alpha, num_maps=args.maps)
+    model = create_model(args.model, num_classes, pretrained=True, kmax=args.k, alpha=args.alpha, num_maps=args.maps)
 
     # define loss function (criterion)
     # criterion = nn.MultiLabelSoftMarginLoss()

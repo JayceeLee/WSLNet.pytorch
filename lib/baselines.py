@@ -215,7 +215,7 @@ def resnet152(pretrained=False, **kwargs):
 
 # For our task
 class resnet101_orig(nn.Module):
-    def __init__(self, num_classes=81, pretrained=True):
+    def __init__(self, num_classes=80, pretrained=True, **kwargs):
         super(resnet101_orig, self).__init__()
         self.net = resnet101(pretrained)
         self.net.avgpool = nn.AvgPool2d(14, stride=1)
@@ -233,7 +233,7 @@ class resnet101_orig(nn.Module):
         return [{'params': self.net.parameters(), 'lr': lr * lrp}]
 
 class resnet50_orig(nn.Module):
-    def __init__(self, num_classes=81, pretrained=True):
+    def __init__(self, num_classes=80, pretrained=True, **kwargs):
         super(resnet50_orig, self).__init__()
         self.net = resnet50(pretrained)
         self.net.avgpool = nn.AvgPool2d(14, stride=1)

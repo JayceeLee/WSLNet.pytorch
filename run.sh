@@ -8,7 +8,8 @@ MODEL=${BASE_MODEL}_${EXTEND_MODEL}
 
 IMG_SIZE=448 # 448, 224 (default 448; if 224, change avgpooling 14 in baseline to 7)
 
-SAVE_ROOT=/opt/intern/users/lucliu/multilabel/expes/models
+# SAVE_ROOT=/opt/intern/users/lucliu/multilabel/checkpoints
+SAVE_ROOT=./checkpoints
 SAVE_PATH=${SAVE_ROOT}/${MODEL}/${DATA}/${IMG_SIZE}
 CHECKPOINTS=${SAVE_PATH}/checkpoint.pth.tar
 
