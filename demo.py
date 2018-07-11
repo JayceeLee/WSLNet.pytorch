@@ -39,7 +39,7 @@ parser.add_argument('--alpha', default=1, type=float,
                     metavar='N', help='weight for the min regions (default: 1)')
 parser.add_argument('--maps', default=1, type=int,
                     metavar='N', help='number of maps per class (default: 1)')
-parser.add_argument('s', '--save', default='./expes/models/', type=str, metavar='DIR',
+parser.add_argument('-s', '--save', default='./expes/models/', type=str, metavar='DIR',
                     help='path to save checkpoints (e.g. ../expes/')
 parser.add_argument('-d', '--dataname', default='coco', type=str,
                     help='dataset name (e.g. coco, nus)')
