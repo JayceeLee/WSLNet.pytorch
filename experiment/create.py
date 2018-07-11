@@ -29,8 +29,8 @@ def create_model(name, *args, **kwargs):
     return model_factory[name](*args, **kwargs)
 
 dataset_factory = {
-    'coco': CocoClassification,
-    'nus': NUSClassification,
+    'mscoco': CocoClassification,
+    'nus-wide': NUSClassification,
 }
 
 def create_dataset(name, *args, **kwargs):
