@@ -9,7 +9,7 @@ from lib.baselines import resnet50_orig, resnet101_orig
 from lib.wildcat import resnet50_wildcat, resnet101_wildcat
 from dataset.coco import CocoClassification
 
-parser = argparse.ArgumentParser(description='WILDCAT Training')
+parser = argparse.ArgumentParser(description='Training')
 parser.add_argument('data', metavar='DIR',
                     help='path to dataset (e.g. ../data/')
 parser.add_argument('--image-size', '-i', default=224, type=int,
@@ -42,6 +42,8 @@ parser.add_argument('--alpha', default=1, type=float,
                     metavar='N', help='weight for the min regions (default: 1)')
 parser.add_argument('--maps', default=1, type=int,
                     metavar='N', help='number of maps per class (default: 1)')
+parser.add_argument('s', '--save', default='./expes/models/', type=str, metavar='DIR',
+                    help='path to save checkpoints (e.g. ../expes/')
 
 
 def main():
@@ -71,8 +73,8 @@ def main():
 
     state = {'batch_size': args.batch_size, 'image_size': args.image_size, 'max_epochs': args.epochs,
              'evaluate': args.evaluate, 'resume': args.resume}
-    state['difficult_examples'] = True
-    state['save_model_path'] = './expes/models/coco/448/50'
+    # state['difficult_examples'] = True
+    state['save_model_path'] = args.save
     
     engine = MultiLabelMAPEngine(state)
     engine.learning(model, criterion, train_dataset, val_dataset, optimizer)

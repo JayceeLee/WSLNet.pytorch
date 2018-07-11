@@ -3,6 +3,7 @@
 # PyTorch implementation of wildcat https://github.com/durandtibo/wildcat.pytorch
 
 import torch.nn as nn
+import torch.nn.functional as F
 import torchvision.models as models
 
 from lib.pooling import WildcatPool2d, ClassWisePool_avg
@@ -10,11 +11,8 @@ from lib.pooling import WildcatPool2d, ClassWisePool_avg
 
 class ResNetWild(nn.Module):
 
-    def __init__(self, model, num_classes, pooling=WildcatPool2d(), dense=False):
+    def __init__(self, model, num_classes, pooling=WildcatPool2d()):
         super(ResNetWild, self).__init__()
-
-        self.dense = dense
-
         self.features = nn.Sequential(
             model.conv1,
             model.bn1,
@@ -39,9 +37,8 @@ class ResNetWild(nn.Module):
     def forward(self, x):
         x = self.features(x)
         x = self.classifier(x)
-        if not self.dense:
-            x = self.spatial_pooling(x)
-        return x
+        x = self.spatial_pooling(x)
+        return F.sigmoid(x)
 
     def get_config_optim(self, lr, lrp):
         return [{'params': self.features.parameters(), 'lr': lr * lrp},

@@ -6,4 +6,5 @@ CUDA_VISIBLE_DEVICES=1,2 python3 -m demo_nus /home/lucliu/dataset/nus-wide \
 --epochs 12 \
 --k 0.2 \
 --maps 8 \
---alpha 0.7 
+--alpha 0.7 \
+--save ./expes/models/nus_wide/448/50
