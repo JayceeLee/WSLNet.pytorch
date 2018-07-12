@@ -1,7 +1,6 @@
 # create models and datasets
 
 from lib.models import resnet50_base, resnet101_base
-from lib.models_add_decoder import resnet50_decoder, resnet101_decoder
 from lib.baselines import resnet50_orig, resnet101_orig
 from lib.wildcat import resnet50_wildcat, resnet101_wildcat
 
@@ -17,9 +16,6 @@ model_factory = {
     'baseline_101': resnet101_orig,
     'wildcat_50': resnet50_wildcat,
     'wildcat_101': resnet101_wildcat,
-    'decoder_50': resnet50_decoder,
-    'decoder_101': resnet101_decoder,
-
 }
 
 def create_model(name, *args, **kwargs):
