@@ -29,7 +29,7 @@ class ResNetWSL_decoder(nn.Module):
         self.de_conv = nn.ConvTranspose2d(num_features, num_classes, kernel_size=3, stride=1, padding=0, bias=True)
         self.group_conv = nn.Conv2d(num_classes, num_classes*num_maps, kernel_size=3, stride=1, padding=0, groups=num_classes, bias=True)
         
-        self.group_conv2 = nn.nn.ConvTranspose2d(num_classes*num_maps, num_classes, kernel_size=3, stride=1, padding=0, groups=num_classes, bias=True)
+        self.group_conv2 = nn.ConvTranspose2d(num_classes*num_maps, num_classes, kernel_size=3, stride=1, padding=0, groups=num_classes, bias=True)
         self.attnlayer = AttentionLayer(num_classes, num_classes)
 
         # self.class_pooling = pooling.class_wise
