@@ -60,8 +60,8 @@ class ResNetWSL(nn.Module):
         # x = self.non_local_layer(x)
 
         # y = self.attnlayer(y)
-        y = torch.randn(b, c)
-        y = Variable(y)
+        y = torch.randn(b, c).cuda()
+        y = Variable(y) 
         y = F.sigmoid(y)
         y = y.view(b, c, 1, 1)
         x = x + y*x
