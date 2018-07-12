@@ -2,14 +2,14 @@ DATA_ROOT=/home/lucliu/dataset
 DATA=mscoco # mscoco, nus-wide 
 DATA_PATH=${DATA_ROOT}/${DATA}
 
-BASE_MODEL=baseline # ours, baseline, wildcat
+BASE_MODEL=decoder # ours, baseline, wildcat, decoder
 EXTEND_MODEL=50 # 50, 101
 MODEL=${BASE_MODEL}_${EXTEND_MODEL}
 
 IMG_SIZE=448 # 448, 224 (default 448; if 224, change avgpooling 14 in baseline to 7)
 
-# SAVE_ROOT=/opt/intern/users/lucliu/multilabel/checkpoints
-SAVE_ROOT=./checkpoints
+SAVE_ROOT=/opt/intern/users/lucliu/multilabel/checkpoints
+# SAVE_ROOT=./checkpoints
 SAVE_PATH=${SAVE_ROOT}/${MODEL}/${DATA}/${IMG_SIZE}
 CHECKPOINTS=${SAVE_PATH}/checkpoint.pth.tar
 
