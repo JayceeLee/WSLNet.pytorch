@@ -10,7 +10,7 @@ from .layers import AttentionLayer
 class ResNetWSL_decoder(nn.Module):
 
     def __init__(self, model, num_classes, num_maps, pooling=None):
-        super(ResNetWSL, self).__init__()
+        super(ResNetWSL_decoder, self).__init__()
 
         self.num_maps = num_maps
         self.features = nn.Sequential(
