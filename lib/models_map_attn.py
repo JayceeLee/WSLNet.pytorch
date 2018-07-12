@@ -1,5 +1,4 @@
 # feature add before class-wise pooling
-# replace old attention layer by mapwise attention layer
 # change (1+attn)*feature to attn*feature 
 import torch 
 import torch.nn as nn
@@ -63,8 +62,7 @@ class ResNetWSL(nn.Module):
 
         y = self.attnlayer_map(y)
         y = y.repeat(1, self.num_classes, 1, 1)
-        # x = x + y*x
-        x = y*x
+        x = x + y*x
 
         x = self.class_pooling(x)
         x = self.spatial_pooling(x)
