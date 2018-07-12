@@ -4,6 +4,9 @@ from lib.models import resnet50_base, resnet101_base
 from lib.baselines import resnet50_orig, resnet101_orig
 from lib.wildcat import resnet50_wildcat, resnet101_wildcat
 
+# for dev
+from lib.models_map_attn import resnet50_map_attn
+
 from dataset.coco import CocoClassification
 from dataset.nus_wide import NUSClassification
 from dataset.wider import WiderClassification 
@@ -16,6 +19,7 @@ model_factory = {
     'baseline_101': resnet101_orig,
     'wildcat_50': resnet50_wildcat,
     'wildcat_101': resnet101_wildcat,
+    'map_attn_50': resnet50_map_attn,
 }
 
 def create_model(name, *args, **kwargs):
