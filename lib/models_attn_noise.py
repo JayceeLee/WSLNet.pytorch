@@ -61,7 +61,7 @@ class ResNetWSL(nn.Module):
 
         # y = self.attnlayer(y)
         y = torch.randn(b, c)
-        y = Variable(y, volatile=True)
+        y = Variable(y)
         y = F.sigmoid(y)
         y = y.view(b, c, 1, 1)
         x = x + y*x
