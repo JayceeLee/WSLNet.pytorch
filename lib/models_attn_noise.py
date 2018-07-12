@@ -75,7 +75,7 @@ class ResNetWSL(nn.Module):
                 {'params': self.group_conv.parameters()},
                 # {'params': self.attnlayer.parameters()},
                 {'params': self.class_pooling.parameters()},
-                {'params': self.class_pooling_avg.parameters()},
+                # {'params': self.class_pooling_avg.parameters()},
                 {'params': self.spatial_pooling.parameters()}]
 
 def resnet50_noise(num_classes, pretrained=True, kmax=1, kmin=None, alpha=1, num_maps=1):
