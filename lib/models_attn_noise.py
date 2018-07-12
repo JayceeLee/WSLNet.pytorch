@@ -3,6 +3,7 @@ import torch
 import torch.nn as nn
 import torchvision.models as models
 import torch.nn.functional as F
+from torch.autograd import Variable 
 
 from .pooling import WildcatPool2d, ClassWisePool, ClassWisePool_avg
 # from .layers import AttentionLayer
@@ -60,6 +61,7 @@ class ResNetWSL(nn.Module):
 
         # y = self.attnlayer(y)
         y = torch.randn(b, c)
+        y = Variable(y, volatile=True)
         y = F.sigmoid(y)
         y = y.view(b, c, 1, 1)
         x = x + y*x
