@@ -34,7 +34,7 @@ class ResNetWSL(nn.Module):
         self.class_pooling = pooling.class_wise
         self.spatial_pooling = pooling.spatial
 
-        self.class_pooling_avg = pooling.class_wise_avg
+        # self.class_pooling_avg = pooling.class_wise_avg
 
         # image normalization
         self.image_normalization_mean = [0.485, 0.456, 0.406]
@@ -52,7 +52,7 @@ class ResNetWSL(nn.Module):
         # x = x + y*x
 
         # x = self.group_conv(x)
-        y = self.class_pooling_avg(x)
+        # y = self.class_pooling_avg(x)
         x = self.class_pooling(x)
         b, c, _, _ = x.size() 
 
@@ -82,7 +82,7 @@ def resnet50_noise(num_classes, pretrained=True, kmax=1, kmin=None, alpha=1, num
     model = models.resnet50(pretrained)
     pooling = nn.Sequential()
     pooling.add_module('class_wise', ClassWisePool(num_maps))
-    pooling.add_module('class_wise_avg', ClassWisePool_avg(num_maps))
+    # pooling.add_module('class_wise_avg', ClassWisePool_avg(num_maps))
     pooling.add_module('spatial', WildcatPool2d(kmax, kmin, alpha))
     return ResNetWSL(model, num_classes, num_maps, pooling=pooling)
 
@@ -90,6 +90,6 @@ def resnet101_noise(num_classes, pretrained=True, kmax=1, kmin=None, alpha=1, nu
     model = models.resnet101(pretrained)
     pooling = nn.Sequential()
     pooling.add_module('class_wise', ClassWisePool(num_maps))
-    pooling.add_module('class_wise_avg', ClassWisePool_avg(num_maps))
+    # pooling.add_module('class_wise_avg', ClassWisePool_avg(num_maps))
     pooling.add_module('spatial', WildcatPool2d(kmax, kmin, alpha))
     return ResNetWSL(model, num_classes, num_maps, pooling=pooling)
