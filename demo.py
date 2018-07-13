@@ -5,6 +5,7 @@ import torch.nn as nn
 
 from experiment.engine import MultiLabelMAPEngine
 from experiment.create import create_model, create_dataset 
+from lib.loss import DivLoss
 
 parser = argparse.ArgumentParser(description='Training')
 parser.add_argument('data', metavar='DIR',
@@ -45,6 +46,10 @@ parser.add_argument('-d', '--dataname', default='coco', type=str,
                     help='dataset name (e.g. coco, nus)')
 parser.add_argument('-m', '--model', default='ours_50', type=str,
                     help='model name (e.g. ours_50, ours_101, baseline_50, wildcat_50)')                   
+parser.add_argument('--margin', default=1, type=float,
+                    metavar='N', help='margin for div loss (default: 1)')
+parser.add_argument('--lamb', default=0.01, type=float,
+                    metavar='N', help='lambda for div loss (default: 0.01)')
 
 def main():
     global args, best_prec1, use_gpu
@@ -62,7 +67,9 @@ def main():
 
     # define loss function (criterion)
     # criterion = nn.MultiLabelSoftMarginLoss()
-    criterion = nn.BCELoss()
+    criterion = nn.Sequential()
+    criterion.add_module('bce_loss', nn.BCELoss())
+    criterion.add_module('div_loss', DivLoss(margin=args.margin))
 
     # define optimizer
     optimizer = torch.optim.SGD(model.get_config_optim(args.lr, args.lrp),
@@ -71,7 +78,7 @@ def main():
                                 weight_decay=args.weight_decay)
 
     state = {'batch_size': args.batch_size, 'image_size': args.image_size, 'max_epochs': args.epochs,
-             'evaluate': args.evaluate, 'resume': args.resume}
+             'evaluate': args.evaluate, 'resume': args.resume, 'lambda': args.lamb}
     # state['difficult_examples'] = True
     state['save_model_path'] = args.save
     

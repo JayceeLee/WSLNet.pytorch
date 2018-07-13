@@ -49,6 +49,7 @@ class ResNetWSL(nn.Module):
         # x = self.classifier(x)
         x = self.de_conv(x)
         x = self.group_conv(x)
+
         # x = x + y*x
 
         # x = self.group_conv(x)
@@ -56,6 +57,7 @@ class ResNetWSL(nn.Module):
         x = self.class_pooling(x)
         b, c, _, _ = x.size() 
 
+        z = x
         # x = self.non_local_layer(x)
 
         y = self.attnlayer(y)
@@ -63,7 +65,7 @@ class ResNetWSL(nn.Module):
         x = self.spatial_pooling(x)
         # x = F.adaptive_avg_pool2d(x, output_size=1)
         x = x.view(b, c)
-        return F.sigmoid(x)
+        return F.sigmoid(x), z 
     
 
     def get_config_optim(self, lr, lrp):
