@@ -118,7 +118,7 @@ class Engine(object):
             target_var.volatile = True
 
         # compute output
-        self.state['output'], state['output_2'] = model(input_var)
+        self.state['output'], self.state['output_2'] = model(input_var)
         self.state['loss'] = (criterion.bce_loss(self.state['output'], target_var) + 
                                 self.state['lambda'] * criterion.div_loss(self.state['output_2']))
 
