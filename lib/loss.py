@@ -1,6 +1,12 @@
 import torch 
 import torch.nn as nn 
 
+def normalize(x):
+    norm = x.norm(dim=1, p=2, keepdim=True)
+    x = x.div(norm.expand_as(x))
+    return x
+
+
 def pairwise_distance(inputs_):
     n = inputs_.size(0)
     # print(4*'\n', x.size())
@@ -20,6 +26,7 @@ class DivLoss(nn.Module):
         loss_sum = 0 
         for i in range(b):
             feat = input[i].view(c, h*w)
+            feat = normalize(feat)
             dist_mat = pairwise_distance(feat)
             maxout = torch.clamp(dist_mat, min=self.margin)
             loss_sum = loss_sum + torch.sum(maxout)
