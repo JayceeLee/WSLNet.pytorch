@@ -29,7 +29,7 @@ class DivLoss(nn.Module):
         for i in range(b):
             feat = input[i].view(c, h*w)
             dist_mat = pairwise_distance(feat)
-            maxout = torch.clamp(dist_mat, min=self.margin)
+            maxout = torch.clamp(self.margin - dist_mat, min=0)
             loss_sum = loss_sum + torch.sum(maxout)
         return loss_sum / b
 
