@@ -13,7 +13,7 @@ SAVE_ROOT=/opt/intern/users/lucliu/multilabel/checkpoints/dev
 SAVE_PATH=${SAVE_ROOT}/${MODEL}/${DATA}/${IMG_SIZE}
 CHECKPOINTS=${SAVE_PATH}/checkpoint.pth.tar
 
-CUDA_VISIBLE_DEVICES=1,2 python3 -m demo ${DATA_PATH} \
+CUDA_VISIBLE_DEVICES=1,2,3 python3 -m demo ${DATA_PATH} \
 --image-size ${IMG_SIZE} \
 --batch-size 50 \
 --lrp 0.1 \
