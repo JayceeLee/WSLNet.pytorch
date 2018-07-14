@@ -69,7 +69,7 @@ def main():
     # criterion = nn.MultiLabelSoftMarginLoss()
     criterion = nn.Sequential()
     criterion.add_module('bce_loss', nn.BCELoss())
-    criterion.add_module('div_loss', DivLoss(margin=args.margin))
+    criterion.add_module('div_loss', DivLoss(num_classes=num_classes, num_maps=args.maps, margin=args.margin, num_samples=5))
 
     # define optimizer
     optimizer = torch.optim.SGD(model.get_config_optim(args.lr, args.lrp),

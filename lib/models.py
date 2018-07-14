@@ -54,9 +54,9 @@ class ResNetWSL(nn.Module):
         x = self.group_conv(x)
 
         # x = x + y*x
-        b_, _, h, w = x.size()
+        # b_, _, h, w = x.size()
         z = x 
-        z = z.view(b_*self.num_classes, self.num_maps, h, w)
+        # z = z.view(b_*self.num_classes, self.num_maps, h, w)
         # x = self.group_conv(x)
         y = self.class_pooling_avg(x)
         x = self.class_pooling(x)

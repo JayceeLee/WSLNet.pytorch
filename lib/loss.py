@@ -19,15 +19,22 @@ def pairwise_distance(inputs_):
 
 
 class DivLoss(nn.Module):
-    def __init__(self, margin=1):
+    def __init__(self, num_classes, num_maps, margin=1, num_samples=5):
         super(DivLoss, self).__init__()
         self.margin = margin 
+        self.num_classes = num_classes
+        self.num_maps = num_maps 
+        self.num_samples = num_samples
 
-    def forward(self, input):
-        b, c, h, w = input.size()
+    def forward(self, input_):
+        b, _, h, w = input_.size()
+        samples_idx = list(range(self.num_samples))
+        samples = input_[samples_idx, :, :, :]
+        samples = samples.view(self.num_samples*self.num_classes, self.num_maps, h*w)
+        b_, _, _ = samples.size()
         loss_sum = 0 
-        for i in range(b):
-            feat = input[i].view(c, h*w)
+        for i in range(b_):
+            feat = samples[i]
             dist_mat = pairwise_distance(feat)
             maxout = torch.clamp(self.margin - dist_mat, min=0)
             loss_sum = loss_sum + torch.sum(maxout)
