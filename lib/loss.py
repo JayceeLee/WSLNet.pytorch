@@ -1,5 +1,6 @@
 import torch 
 import torch.nn as nn 
+import random 
 
 def normalize(x):
     norm = x.norm(dim=1, p=2, keepdim=True)
@@ -28,9 +29,12 @@ class DivLoss(nn.Module):
 
     def forward(self, input_):
         b, _, h, w = input_.size()
-        samples_idx = list(range(self.num_samples))
+        num_samples = self.num_samples
+        if num_samples > b:
+            num_samples = b
+        samples_idx = random.sample(list(range(b)), num_samples)
         samples = input_[samples_idx, :, :, :]
-        samples = samples.view(self.num_samples*self.num_classes, self.num_maps, h*w)
+        samples = samples.view(num_samples*self.num_classes, self.num_maps, h*w)
         b_, _, _ = samples.size()
         loss_sum = 0 
         for i in range(b_):
