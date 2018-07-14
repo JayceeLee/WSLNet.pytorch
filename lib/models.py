@@ -39,6 +39,9 @@ class ResNetWSL(nn.Module):
         # image normalization
         self.image_normalization_mean = [0.485, 0.456, 0.406]
         self.image_normalization_std = [0.229, 0.224, 0.225]
+
+        self.num_classes = num_classes
+        self.num_maps = num_maps
     
     def forward(self, x):
         x = self.features(x)
@@ -51,13 +54,15 @@ class ResNetWSL(nn.Module):
         x = self.group_conv(x)
 
         # x = x + y*x
-
+        b_, _, _, _ = x.size()
+        z = x 
+        z = z.view(b_*self.num_classes, self.num_maps, -1, -1)
         # x = self.group_conv(x)
         y = self.class_pooling_avg(x)
         x = self.class_pooling(x)
         b, c, _, _ = x.size() 
 
-        z = x
+        
         # x = self.non_local_layer(x)
 
         y = self.attnlayer(y)
