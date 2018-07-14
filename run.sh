@@ -25,6 +25,6 @@ CUDA_VISIBLE_DEVICES=1,2 python3 -m demo ${DATA_PATH} \
 --dataname ${DATA} \
 --model ${MODEL} \
 --save ${SAVE_PATH} \
---margin 0.5 \
+--margin 1 \
 --lamb 0.01 \
 --resume ${CHECKPOINTS}
