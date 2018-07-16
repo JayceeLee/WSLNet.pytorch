@@ -1,4 +1,6 @@
 # feature add before class-wise pooling
+# not no group
+# the new version is with feat attention
 import torch 
 import torch.nn as nn
 import torchvision.models as models
@@ -27,8 +29,8 @@ class ResNetWSL(nn.Module):
         num_features = model.layer4[1].conv1.in_channels
 
         # self.de_conv = nn.ConvTranspose2d(num_features, num_classes, kernel_size=3, stride=1, padding=0, bias=True)
-        self.de_conv = nn.Conv2d(num_features, num_classes, kernel_size=1, stride=1, padding=0, bias=True)
-        self.group_conv = nn.Conv2d(num_classes, num_classes*num_maps, kernel_size=1, stride=1, padding=0, groups=num_classes, bias=True)
+        # self.de_conv = nn.Conv2d(num_features, num_classes, kernel_size=1, stride=1, padding=0, bias=True)
+        self.group_conv = nn.Conv2d(num_features, num_classes*num_maps, kernel_size=1, stride=1, padding=0, bias=True)
         
         self.attnlayer = AttentionLayer(num_features, num_classes)
 
@@ -49,7 +51,7 @@ class ResNetWSL(nn.Module):
         # b, c, _, _ = x.size()
         # y = y.repeat(1, 1, 1, self.num_maps).view(b, c*self.num_maps, 1, 1)
         # x = self.classifier(x)
-        x = self.de_conv(x)
+        # x = self.de_conv(x)
         x = self.group_conv(x)
         # x = x + y*x
 
@@ -70,7 +72,7 @@ class ResNetWSL(nn.Module):
 
     def get_config_optim(self, lr, lrp):
         return [{'params': self.features.parameters(), 'lr': lr * lrp},
-                {'params': self.de_conv.parameters()},
+                # {'params': self.de_conv.parameters()},
                 {'params': self.group_conv.parameters()},
                 {'params': self.attnlayer.parameters()},
                 {'params': self.class_pooling.parameters()},
