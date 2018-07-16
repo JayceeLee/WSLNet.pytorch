@@ -6,14 +6,14 @@ BASE_MODEL=feat_attn # ours, baseline, wildcat, map_attn(dev), noise(dev), no_at
 EXTEND_MODEL=50 # 50, 101
 MODEL=${BASE_MODEL}_${EXTEND_MODEL}
 
-IMG_SIZE=448 # 448, 224 (default 448; if 224, change avgpooling 14 in baseline to 7)
+IMG_SIZE=224 # 448, 224 (default 448; if 224, change avgpooling 14 in baseline to 7)
 
 SAVE_ROOT=/opt/intern/users/lucliu/multilabel/checkpoints/dev
 # SAVE_ROOT=./checkpoints
 SAVE_PATH=${SAVE_ROOT}/${MODEL}/${DATA}/${IMG_SIZE}
 CHECKPOINTS=${SAVE_PATH}/checkpoint.pth.tar
 
-CUDA_VISIBLE_DEVICES=1,2,3 python3 -m demo ${DATA_PATH} \
+CUDA_VISIBLE_DEVICES=4 python3 -m demo ${DATA_PATH} \
 --image-size ${IMG_SIZE} \
 --batch-size 50 \
 --lrp 0.1 \
