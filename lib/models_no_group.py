@@ -28,7 +28,7 @@ class ResNetWSL(nn.Module):
 
         # self.de_conv = nn.ConvTranspose2d(num_features, num_classes, kernel_size=3, stride=1, padding=0, bias=True)
         self.de_conv = nn.Conv2d(num_features, num_classes, kernel_size=1, stride=1, padding=0, bias=True)
-        self.group_conv = nn.Conv2d(num_features, num_classes*num_maps, kernel_size=1, stride=1, padding=0, groups=num_classes, bias=True)
+        self.group_conv = nn.Conv2d(num_classes, num_classes*num_maps, kernel_size=1, stride=1, padding=0, groups=num_classes, bias=True)
         
         self.attnlayer = AttentionLayer(num_classes, num_classes)
 
