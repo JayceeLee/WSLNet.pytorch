@@ -2,7 +2,7 @@ DATA_ROOT=/home/lucliu/dataset
 DATA=mscoco # mscoco, nus-wide 
 DATA_PATH=${DATA_ROOT}/${DATA}
 
-BASE_MODEL=no_attn # ours, baseline, wildcat, map_attn(dev), noise(dev), no_attn(dev)
+BASE_MODEL=feat_attn # ours, baseline, wildcat, map_attn(dev), noise(dev), no_attn(dev), feat_attn(dev)
 EXTEND_MODEL=50 # 50, 101
 MODEL=${BASE_MODEL}_${EXTEND_MODEL}
 
@@ -13,7 +13,7 @@ SAVE_ROOT=/opt/intern/users/lucliu/multilabel/checkpoints
 SAVE_PATH=${SAVE_ROOT}/${MODEL}/${DATA}/${IMG_SIZE}
 CHECKPOINTS=${SAVE_PATH}/checkpoint.pth.tar
 
-CUDA_VISIBLE_DEVICES=5,6 python3 -m demo ${DATA_PATH} \
+CUDA_VISIBLE_DEVICES=1,2,3 python3 -m demo ${DATA_PATH} \
 --image-size ${IMG_SIZE} \
 --batch-size 50 \
 --lrp 0.1 \
