@@ -259,7 +259,10 @@ class Voc2007Classification(data.Dataset):
         self.root = root
         self.path_devkit = os.path.join(root, 'VOCdevkit')
         self.path_images = os.path.join(root, 'VOCdevkit', 'VOC2007', 'JPEGImages')
+        if set == 'train':
+            set = 'trainval'
         self.set = set
+
         self.transform = transform
         self.target_transform = target_transform
 
