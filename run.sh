@@ -1,5 +1,5 @@
 DATA_ROOT=/home/lucliu/dataset
-DATA=wider # mscoco, nus-wide, wider 
+DATA=voc # mscoco, nus-wide, wider 
 DATA_PATH=${DATA_ROOT}/${DATA}
 
 BASE_MODEL=ours # ours, baseline, wildcat
