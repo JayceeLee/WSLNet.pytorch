@@ -48,7 +48,7 @@ class ResNetWSL(nn.Module):
         # b, c, _, _ = x.size()
         # y = y.repeat(1, 1, 1, self.num_maps).view(b, c*self.num_maps, 1, 1)
         # x = self.classifier(x)
-        # x = self.de_conv(x)
+        x = self.de_conv(x)
         x = self.group_conv(x)
         # x = x + y*x
 
