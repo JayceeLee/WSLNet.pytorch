@@ -68,7 +68,7 @@ class ResNetWSL(nn.Module):
 
     def get_config_optim(self, lr, lrp):
         return [{'params': self.features.parameters(), 'lr': lr * lrp},
-                {'params': self.de_conv.parameters()},
+                # {'params': self.de_conv.parameters()},
                 {'params': self.group_conv.parameters()},
                 {'params': self.attnlayer.parameters()},
                 {'params': self.class_pooling.parameters()},

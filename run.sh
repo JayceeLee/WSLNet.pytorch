@@ -18,7 +18,7 @@ CUDA_VISIBLE_DEVICES=4 python3 -m demo ${DATA_PATH} \
 --batch-size 50 \
 --lrp 0.1 \
 --lr 0.01 \
---epochs 12 \
+--epochs 20 \
 --k 0.2 \
 --maps 8 \
 --alpha 0.7 \
