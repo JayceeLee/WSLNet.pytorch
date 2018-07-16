@@ -2,7 +2,7 @@ DATA_ROOT=/home/lucliu/dataset
 DATA=wider # mscoco, nus-wide, wider 
 DATA_PATH=${DATA_ROOT}/${DATA}
 
-BASE_MODEL=wildcat # ours, baseline, wildcat
+BASE_MODEL=ours # ours, baseline, wildcat
 EXTEND_MODEL=50 # 50, 101
 MODEL=${BASE_MODEL}_${EXTEND_MODEL}
 
@@ -25,4 +25,4 @@ CUDA_VISIBLE_DEVICES=1,2,3 python3 -m demo ${DATA_PATH} \
 --dataname ${DATA} \
 --model ${MODEL} \
 --save ${SAVE_PATH} \
---resume ${CHECKPOINTS}
+# --resume ${CHECKPOINTS}
