@@ -8,6 +8,7 @@ from lib.wildcat import resnet50_wildcat, resnet101_wildcat
 from lib.models_map_attn import resnet50_map_attn
 from lib.models_attn_noise import resnet50_noise
 from lib.models_no_attn import resnet50_no_attn
+from lib.models_feat_attn import resnet50_feat_attn 
 
 from dataset.coco import CocoClassification
 from dataset.nus_wide import NUSClassification
@@ -24,6 +25,7 @@ model_factory = {
     'map_attn_50': resnet50_map_attn,
     'noise_50': resnet50_noise,
     'no_attn_50': resnet50_no_attn, 
+    'feat_attn_50': resnet50_feat_attn,
 }
 
 def create_model(name, *args, **kwargs):
