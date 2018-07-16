@@ -25,4 +25,4 @@ CUDA_VISIBLE_DEVICES=4 python3 -m demo ${DATA_PATH} \
 --dataname ${DATA} \
 --model ${MODEL} \
 --save ${SAVE_PATH} \
---resume ${CHECKPOINTS}
+# --resume ${CHECKPOINTS}
