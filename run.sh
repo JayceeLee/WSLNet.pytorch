@@ -2,7 +2,7 @@ DATA_ROOT=/home/lucliu/dataset
 DATA=voc # mscoco, nus-wide 
 DATA_PATH=${DATA_ROOT}/${DATA}
 
-BASE_MODEL=feat_attn # ours, baseline, wildcat, map_attn(dev), noise(dev), no_attn(dev), feat_attn(dev)
+BASE_MODEL=no_group # ours, baseline, wildcat, map_attn(dev), noise(dev), no_attn(dev), feat_attn(dev)
 EXTEND_MODEL=50 # 50, 101
 MODEL=${BASE_MODEL}_${EXTEND_MODEL}
 
