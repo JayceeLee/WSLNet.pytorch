@@ -30,7 +30,7 @@ class ResNetWSL(nn.Module):
         self.de_conv = nn.Conv2d(num_features, num_classes, kernel_size=1, stride=1, padding=0, bias=True)
         self.group_conv = nn.Conv2d(num_classes, num_classes*num_maps, kernel_size=1, stride=1, padding=0, groups=num_classes, bias=True)
         
-        self.attnlayer = AttentionLayer(num_classes, num_classes)
+        self.attnlayer = AttentionLayer(num_features, num_classes)
 
         self.class_pooling = pooling.class_wise
         self.spatial_pooling = pooling.spatial
@@ -43,6 +43,7 @@ class ResNetWSL(nn.Module):
     
     def forward(self, x):
         x = self.features(x)
+        y = self.attnlayer(x)
         # y = self.splayer(x)
         # b, c, _, _ = y.size()
         # b, c, _, _ = x.size()
@@ -53,13 +54,13 @@ class ResNetWSL(nn.Module):
         # x = x + y*x
 
         # x = self.group_conv(x)
-        y = self.class_pooling_avg(x)
+        # y = self.class_pooling_avg(x)
         x = self.class_pooling(x)
         b, c, _, _ = x.size() 
 
         # x = self.non_local_layer(x)
 
-        y = self.attnlayer(y)
+        # y = self.attnlayer(y)
         x = x + y*x
         x = self.spatial_pooling(x)
         # x = F.adaptive_avg_pool2d(x, output_size=1)
