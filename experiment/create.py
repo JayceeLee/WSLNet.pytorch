@@ -8,6 +8,7 @@ from dataset.coco import CocoClassification
 from dataset.nus_wide import NUSClassification
 from dataset.wider import WiderClassification 
 from dataset.voc import Voc2007Classification
+from dataset.wish import Wish
 
 model_factory = {
     'ours_50': resnet50_base,
@@ -35,6 +36,7 @@ dataset_factory = {
     'nus-wide': NUSClassification,
     'wider': WiderClassification,
     'voc': Voc2007Classification,
+    'wish': Wish
 }
 
 def create_dataset(name, *args, **kwargs):
