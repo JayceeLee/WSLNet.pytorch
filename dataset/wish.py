@@ -69,3 +69,13 @@ class Wish (Dataset):
 
     def get_number_classes(self):
         return 228
+
+
+def test_Wish():
+    train_data = Wish('hello', 'train')
+    test_data = Wish('hello', 'test')
+    print(len(train_data))
+    print(len(test_data))
+
+if __name__ == "__main__":
+    test_Wish()
