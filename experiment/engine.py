@@ -449,9 +449,9 @@ class MulticlassTop5Engine(Engine):
 class MultiLabelMAPEngine(Engine):
     def __init__(self, state):
         Engine.__init__(self, state)
-        if self._state('difficult_examples') is None:
-            self.state['difficult_examples'] = False
-        self.state['ap_meter'] = AveragePrecisionMeter(self.state['difficult_examples'])
+        # if self.state['difficult_examples'] is None:
+        #     self.state['difficult_examples'] = False
+        self.state['ap_meter'] = AveragePrecisionMeter(self.state['threshold'])
 
     def on_start_epoch(self, training, model, criterion, data_loader, optimizer=None, display=True):
         Engine.on_start_epoch(self, training, model, criterion, data_loader, optimizer)

@@ -76,10 +76,10 @@ class AveragePrecisionMeter(object):
     each sample.
     """
 
-    def __init__(self, difficult_examples=False):
+    def __init__(self, threshold=0.5):
         super(AveragePrecisionMeter, self).__init__()
         self.reset()
-        self.difficult_examples = difficult_examples
+        self.threshold = threshold
 
     def reset(self):
         """Resets the meter with empty member variables"""
@@ -163,7 +163,7 @@ class AveragePrecisionMeter(object):
         """Returns the model's P-C, R-C, F1-C, P-O, R-O, F1-O
         Return value
         """
-        PC, RC, FC, PO, RO, FO = AveragePrecisionMeter.precision_recall_f1(self.scores, self.targets)
+        PC, RC, FC, PO, RO, FO = AveragePrecisionMeter.precision_recall_f1(self.scores, self.targets, threshold=self.threshold)
 
         return 100*PC, 100*RC, 100*FC, 100*PO, 100*RO, 100*FO
     # @staticmethod
@@ -224,12 +224,12 @@ class AveragePrecisionMeter(object):
         return ap_at_k
 
     @staticmethod 
-    def precision_recall_f1(output, target):
+    def precision_recall_f1(output, target, threshold=0.5):
         y_true = target.numpy()
         y_pred = output.numpy()
 
-        y_pred[y_pred > 0.5] = 1
-        y_pred[y_pred <= 0.5] = 0
+        y_pred[y_pred > threshold] = 1
+        y_pred[y_pred <= threshold] = 0
 
         pre_c, rec_c, f1_c, _ = precision_recall_fscore_support(y_true, y_pred, beta=1.0, average='macro')
 

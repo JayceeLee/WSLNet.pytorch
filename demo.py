@@ -44,7 +44,9 @@ parser.add_argument('-s', '--save', default='./expes/models/', type=str, metavar
 parser.add_argument('-d', '--dataname', default='coco', type=str,
                     help='dataset name (e.g. coco, nus)')
 parser.add_argument('-m', '--model', default='ours_50', type=str,
-                    help='model name (e.g. ours_50, ours_101, baseline_50, wildcat_50)')                   
+                    help='model name (e.g. ours_50, ours_101, baseline_50, wildcat_50)')
+parser.add_argument('--threshold', default=0.5, type=float, 
+                    help='threshold of predicted labels, if larger than threshold then set 1')
 
 def main():
     global args, best_prec1, use_gpu
@@ -71,7 +73,7 @@ def main():
                                 weight_decay=args.weight_decay)
 
     state = {'batch_size': args.batch_size, 'image_size': args.image_size, 'max_epochs': args.epochs,
-             'evaluate': args.evaluate, 'resume': args.resume}
+             'evaluate': args.evaluate, 'resume': args.resume, 'threshold': args.threshold}
     # state['difficult_examples'] = True
     state['save_model_path'] = args.save
     
