@@ -29,6 +29,7 @@ class Engine(object):
         if self._state('workers') is None:
             self.state['workers'] = 4
 
+        # not very useful use CUDA_VISIBLE_DEVICES instead
         if self._state('multi_gpu') is None:
             self.state['multi_gpu'] = False
 
